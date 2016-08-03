@@ -1,0 +1,12 @@
+GEM
+  specs:
+    liquid (3.0.6)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  liquid
+
+BUNDLED WITH
+   1.11.2
