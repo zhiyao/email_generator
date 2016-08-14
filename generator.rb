@@ -6,12 +6,22 @@ template = Liquid::Template.parse(file)
 
 hash = {}
 
+csv_contents = CSV.read('./data.csv')
+headers = csv_contents.shift
+
+puts "Headers"
+puts headers.inspect
+
 CSV.foreach('./data.csv') do |row|
-  hash[row[0].to_s] = row[1]
-end
+  next if $. == 1
+  headers.each_with_index do |header, index|
+    hash[header] = row[index]
+  end
 
-puts hash.inspect
+  puts "Generating output_#{$.-1}.html"
+  puts hash.inspect
 
-File.open("output.html", 'w') do |f|
-  f.write template.render(hash)
+  File.open("output_#{$.-1}.html", 'w') do |f|
+    f.write template.render(hash)
+  end
 end
